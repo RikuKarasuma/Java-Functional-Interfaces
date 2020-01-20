@@ -13,6 +13,10 @@ import java.util.function.BiFunction;
 // result of a different type.
 import java.util.function.BinaryOperator;
 
+// Predicate interface takes a single argument. Then it produces a Boolean 
+// result.
+import java.util.function.Predicate;
+
 public class FunctionalInterfacesPractice
 {
 	
@@ -59,5 +63,27 @@ public class FunctionalInterfacesPractice
 		out.println("(BinaryOperator)Returned processed number:" + result_of_binary_operator);
 		
 		
+		/**
+		 * Predicate takes a single type and then returns a Boolean value
+		 * after doing something with the type.
+		 */
+		Predicate<PredicatePayload> predicate_literal = (payload) -> 
+		{
+			return payload.doStuff();
+		}; 
+
+		// Execute our literal function predicate and pass through the
+		// required data type to process.
+		predicate_literal.test(new PredicatePayload());
+	}
+
+
+	private static class PredicatePayload
+	{
+		private boolean doStuff()
+		{
+			out.println("(Predicate)Doing Stuff.");
+			return true;
+		}
 	}
 }
