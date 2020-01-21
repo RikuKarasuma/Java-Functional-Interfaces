@@ -26,8 +26,7 @@ import java.util.function.BiPredicate;
 // It can be used to lazily load variables or functions also. 
 import java.util.function.Supplier;
 
-// 
-// 
+// A Supplier interface type that deals exclusively with returning Booleans. 
 import java.util.function.BooleanSupplier;
 
 public class FunctionalInterfacesPractice
@@ -113,10 +112,17 @@ public class FunctionalInterfacesPractice
 		
 		// Here is an example of a function that can be used to set a variable to a Supplier
 		// interface. This is then executed once its get function is called.
-		final Supplier<String> lazySupplier = SupplierPayload.setLazyVariable("Hello World");
-		System.out.println("(Supplier)Lazily loaded value:"+lazySupplier.get());
+		final Supplier<String> lazy_supplier = SupplierPayload.setLazyVariable("Hello World");
+		out.println("(Supplier)Lazily loaded value:"+lazy_supplier.get());
 		
 		
+		/**
+		 * BooleanSupplier accepts Zero arguments and returns a Boolean to whoever calls its
+		 * getAsBoolean function.
+		 */
+		BooleanSupplier flag_supplier = () -> { return false; };
+		
+		out.printf("(BooleanSupplier)Flag result:%b", flag_supplier.getAsBoolean());
 	}
 	
 	

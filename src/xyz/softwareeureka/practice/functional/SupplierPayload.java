@@ -11,7 +11,7 @@ public class SupplierPayload<T>
 	{
 		return () -> 
 		{
-			System.out.println("Loading lazy variable...");
+			System.out.println("(Supplier)Loading lazy variable...");
 			return toLazyLoad;
 		}; 
 	};
