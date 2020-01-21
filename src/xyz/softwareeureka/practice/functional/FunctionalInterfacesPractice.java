@@ -21,6 +21,15 @@ import java.util.function.Predicate;
 // instead of the previous One. It then returns a Boolean result. 
 import java.util.function.BiPredicate;
 
+
+// Supplier is used to supply a instance of a particular type to something.
+// It can be used to lazily load variables or functions also. 
+import java.util.function.Supplier;
+
+// 
+// 
+import java.util.function.BooleanSupplier;
+
 public class FunctionalInterfacesPractice
 {
 	
@@ -29,11 +38,10 @@ public class FunctionalInterfacesPractice
 	
 	public static void main(String[] args)
 	{
-		
 		/**
 		 * A BiConsumer interface accepts dual arguments.
 		 */
-		BiConsumer<Integer, Boolean> dual_args_literal_function = (number_to_process, process_now) -> {
+		final BiConsumer<Integer, Boolean> dual_args_literal_function = (number_to_process, process_now) -> {
 			if(process_now)
 				out.println("(BiConsumer)Processed number:" + (number_to_process *= 2));
 		};
@@ -47,19 +55,20 @@ public class FunctionalInterfacesPractice
 		 * A BiFunction interface accepts dual arguments in order to produce 
 		 * a result.
 		 */
-		BiFunction<Integer, Integer, Integer> dual_args_for_result_literal_function = (number_to_process, multiplier) -> 
+		final BiFunction<Integer, Integer, Integer> dual_args_for_result_literal_function = (number_to_process, multiplier) -> 
 			{return number_to_process * multiplier;};
 			
 		// Execute our dual argument functional interface and receive the result.
 		final int result = dual_args_for_result_literal_function.apply(10, 100);
 		out.println("(BiFunction)Returned processed number:" + result);
 		
+		
 		/**
 		 * A BinaryConsumer interface accepts Two arguments however it only accepts
 		 * a single type argument. This means each argument and the result must be of
 		 * same type. 
 		 */
-		BinaryOperator<Double> dual_args_for_result_without_result_type = (number_to_process, multipler) ->
+		final BinaryOperator<Double> dual_args_for_result_without_result_type = (number_to_process, multipler) ->
 			{return number_to_process * multipler;};
 		
 		// Execute our dual argument functional interface and retrieve the result.
@@ -71,7 +80,7 @@ public class FunctionalInterfacesPractice
 		 * Predicate takes a single type and then returns a Boolean value
 		 * after doing something with the type.
 		 */
-		Predicate<PredicatePayload> predicate_literal = (payload) -> 
+		final Predicate<PredicatePayload> predicate_literal = (payload) -> 
 		{
 			final boolean is_bi_predicate = false;
 			return payload.doStuff(is_bi_predicate);
@@ -81,19 +90,36 @@ public class FunctionalInterfacesPractice
 		// required data type to process.
 		predicate_literal.test(new PredicatePayload());
 		
+		
 		/**
 		 * BiPredicate accepts dual arguments of distinct types and uses each one to 
 		 * determine the result of a boolean type.
 		 */
-		BiPredicate<PredicatePayload, PredicatePayload> bipredicate_literal = (payload_0, payload_1) ->
+		final BiPredicate<PredicatePayload, PredicatePayload> bipredicate_literal = (payload_0, payload_1) ->
 		{
 			final boolean is_bi_predicate = true;
 			return (payload_0.doStuff(is_bi_predicate) && payload_1.doStuff(is_bi_predicate));
 		};
 		
-		// Execute our BiPredicate function
+		// Execute our BiPredicate function. 
 		bipredicate_literal.test(new PredicatePayload(), new PredicatePayload());
+		
+		/**
+		 * Supplier accepts Zero arguments and returns an instance of a specified type.
+		 * Useful for lazy loading functions or variables that are expensive to run all
+		 * at once.
+		 */
+		Supplier<Void> supplier = () -> { return null; };
+		
+		// Here is an example of a function that can be used to set a variable to a Supplier
+		// interface. This is then executed once its get function is called.
+		final Supplier<String> lazySupplier = SupplierPayload.setLazyVariable("Hello World");
+		System.out.println("(Supplier)Lazily loaded value:"+lazySupplier.get());
+		
+		
 	}
+	
+	
 
 
 	private static class PredicatePayload
