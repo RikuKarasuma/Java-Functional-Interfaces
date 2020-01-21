@@ -33,6 +33,10 @@ import java.util.function.BooleanSupplier;
 // Useful for functional definitions such as functional parameter types. 
 import java.util.function.Consumer;
 
+// A Function accepts a single argument and returns a result. The argument and
+// result type is specified.
+import java.util.function.Function;
+
 public class FunctionalInterfacesPractice
 {
 	
@@ -112,6 +116,7 @@ public class FunctionalInterfacesPractice
 		 * Useful for lazy loading functions or variables that are expensive to run all
 		 * at once.
 		 */
+		@SuppressWarnings("unused")
 		final Supplier<Void> supplier = () -> { return null; };
 		
 		// Here is an example of a function that can be used to set a variable to a Supplier
@@ -134,6 +139,17 @@ public class FunctionalInterfacesPractice
 		 */
 		final Consumer<String> consumer_which_prints = (str) -> { out.printf("\n(Consumer)Processed argument:%s", str);};
 		consumer_which_prints.accept("processing this string inside a consumer.");
+		
+		
+		/**
+		 * Function accepts a single typed argument and produces a typed result. Both
+		 * types are specified in the function declaration.
+		 */
+		final Function<String, Integer> literal_function = (str) -> { return str.length(); };
+		final int string_length = literal_function.apply("Hello World");
+		out.printf("\n(Function)Length of string:%d", string_length);
+		
+		
 	}
 	
 	
