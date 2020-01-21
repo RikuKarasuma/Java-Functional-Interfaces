@@ -29,6 +29,10 @@ import java.util.function.Supplier;
 // A Supplier interface type that deals exclusively with returning Booleans. 
 import java.util.function.BooleanSupplier;
 
+// A Consumer accepts a single argument and doesn't return any result.
+// Useful for functional definitions such as functional parameter types. 
+import java.util.function.Consumer;
+
 public class FunctionalInterfacesPractice
 {
 	
@@ -108,10 +112,10 @@ public class FunctionalInterfacesPractice
 		 * Useful for lazy loading functions or variables that are expensive to run all
 		 * at once.
 		 */
-		Supplier<Void> supplier = () -> { return null; };
+		final Supplier<Void> supplier = () -> { return null; };
 		
 		// Here is an example of a function that can be used to set a variable to a Supplier
-		// interface. This is then executed once its get function is called.
+		// interface. This is then executed/initialised once its get function is called via get.
 		final Supplier<String> lazy_supplier = SupplierPayload.setLazyVariable("Hello World");
 		out.println("(Supplier)Lazily loaded value:"+lazy_supplier.get());
 		
@@ -120,9 +124,16 @@ public class FunctionalInterfacesPractice
 		 * BooleanSupplier accepts Zero arguments and returns a Boolean to whoever calls its
 		 * getAsBoolean function.
 		 */
-		BooleanSupplier flag_supplier = () -> { return false; };
-		
+		final BooleanSupplier flag_supplier = () -> { return false; };
 		out.printf("(BooleanSupplier)Flag result:%b", flag_supplier.getAsBoolean());
+		
+		
+		/**
+		 * Consumer accepts a single argument for processing and returns Zero results.
+		 * Useful for functional type definitions such as within parameters.
+		 */
+		final Consumer<String> consumer_which_prints = (str) -> { out.printf("\n(Consumer)Processed argument:%s", str);};
+		consumer_which_prints.accept("processing this string inside a consumer.");
 	}
 	
 	
