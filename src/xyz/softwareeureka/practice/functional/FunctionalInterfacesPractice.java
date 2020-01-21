@@ -17,6 +17,10 @@ import java.util.function.BinaryOperator;
 // result.
 import java.util.function.Predicate;
 
+// BiPredicate is like the Predicate interface. Although it takes Two arguments
+// instead of the previous One. It then returns a Boolean result. 
+import java.util.function.BiPredicate;
+
 public class FunctionalInterfacesPractice
 {
 	
@@ -69,20 +73,35 @@ public class FunctionalInterfacesPractice
 		 */
 		Predicate<PredicatePayload> predicate_literal = (payload) -> 
 		{
-			return payload.doStuff();
+			final boolean is_bi_predicate = false;
+			return payload.doStuff(is_bi_predicate);
 		}; 
 
 		// Execute our literal function predicate and pass through the
 		// required data type to process.
 		predicate_literal.test(new PredicatePayload());
+		
+		/**
+		 * BiPredicate accepts dual arguments of distinct types and uses each one to 
+		 * determine the result of a boolean type.
+		 */
+		BiPredicate<PredicatePayload, PredicatePayload> bipredicate_literal = (payload_0, payload_1) ->
+		{
+			final boolean is_bi_predicate = true;
+			return (payload_0.doStuff(is_bi_predicate) && payload_1.doStuff(is_bi_predicate));
+		};
+		
+		// Execute our BiPredicate function
+		bipredicate_literal.test(new PredicatePayload(), new PredicatePayload());
 	}
 
 
 	private static class PredicatePayload
 	{
-		private boolean doStuff()
+		private boolean doStuff(final boolean is_bi)
 		{
-			out.println("(Predicate)Doing Stuff.");
+			final String functional_type = (is_bi) ? "(BiPredicate)" : "(Predicate)";
+			out.println(functional_type+"Doing Stuff.");
 			return true;
 		}
 	}
