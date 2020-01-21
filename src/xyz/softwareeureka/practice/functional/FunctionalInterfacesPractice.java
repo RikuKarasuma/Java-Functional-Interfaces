@@ -40,9 +40,6 @@ import java.util.function.Function;
 public class FunctionalInterfacesPractice
 {
 	
-	
-	
-	
 	public static void main(String[] args)
 	{
 		/**
@@ -148,8 +145,6 @@ public class FunctionalInterfacesPractice
 		final Function<String, Integer> literal_function = (str) -> { return str.length(); };
 		final int string_length = literal_function.apply("Hello World");
 		out.printf("\n(Function)Length of string:%d", string_length);
-		
-		
 	}
 	
 	
